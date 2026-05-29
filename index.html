@@ -5,85 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>[YOUR NAME] — [TITLE]</title>
   <meta name="description" content="[ONE-LINE DESCRIPTION OF YOU]" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="container">
+  <div class="page">
 
     <header class="hero">
       <img class="avatar" src="avatar.jpg" alt="[YOUR NAME]" />
-      <h1>[YOUR NAME], [CREDENTIALS e.g. Ph.D.]</h1>
-      <p class="tagline">[ROLE / AFFILIATION]</p>
+      <div class="hero-text">
+        <h1>[YOUR NAME], <span class="credentials">[CREDENTIALS]</span></h1>
+        <p class="tagline">[ROLE / AFFILIATION]</p>
+        <p class="bio">
+          [WRITE A SHORT BIO HERE — 2 OR 3 SENTENCES ABOUT YOUR RESEARCH
+          INTERESTS, BACKGROUND, AND CURRENT WORK.]
+        </p>
+        <ul class="link-row">
+          <li><a href="https://github.com/[USERNAME]" rel="me">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.69-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+            GitHub
+          </a></li>
+          <li><a href="https://orcid.org/[ORCID-ID]" rel="me">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zM7.37 17.97H5.85V7.41h1.52v10.56zm-.76-11.91a.95.95 0 1 1 0-1.9.95.95 0 0 1 0 1.9zm10.13 11.91h-3.49V7.41h3.39c3.22 0 4.7 2.3 4.7 5.28 0 3.24-2.03 5.28-4.6 5.28zm-.18-9.18h-1.79v7.8h1.69c2.39 0 3.32-1.73 3.32-3.9 0-2.36-1.5-3.9-3.22-3.9z"/></svg>
+            ORCID
+          </a></li>
+          <li><a href="mailto:[YOU]@example.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2.4.4L12 11l7.6-5.6H4.4zM20 7.2l-7.4 5.5a1 1 0 0 1-1.2 0L4 7.2V19h16V7.2z"/></svg>
+            Email
+          </a></li>
+          <li><a href="https://www.linkedin.com/in/[USERNAME]" rel="me">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+            LinkedIn
+          </a></li>
+        </ul>
+      </div>
     </header>
 
-    <section class="bio">
-      <p>
-        [WRITE A SHORT BIO HERE — 2 OR 3 SENTENCES ABOUT YOUR RESEARCH
-        INTERESTS, BACKGROUND, AND CURRENT WORK.]
-      </p>
-    </section>
-
-    <section class="links">
-      <ul class="link-row">
-        <li><a href="https://github.com/[USERNAME]" rel="me">GitHub</a></li>
-        <li><a href="https://orcid.org/[ORCID-ID]" rel="me">ORCID</a></li>
-        <li><a href="mailto:[YOU]@example.com">Email</a></li>
-        <li><a href="https://www.linkedin.com/in/[USERNAME]" rel="me">LinkedIn</a></li>
-      </ul>
-    </section>
-
-    <section>
+    <section class="section">
       <h2>Publications</h2>
       <ol class="pubs">
-        <li>
-          [AUTHORS]. <em>[TITLE OF PAPER]</em>. [VENUE], [YEAR].
-          <a href="#">[PDF]</a>
+        <li class="pub">
+          <span class="year">[YEAR]</span>
+          <div class="pub-body">
+            <p class="pub-title">[TITLE OF PAPER]</p>
+            <p class="pub-meta">[AUTHORS]</p>
+            <p class="pub-venue">[VENUE / JOURNAL]</p>
+            <p class="pub-links"><a class="btn" href="#">PDF</a> <a class="btn" href="#">DOI</a></p>
+          </div>
         </li>
-        <li>
-          [AUTHORS]. <em>[TITLE OF PAPER]</em>. [VENUE], [YEAR].
-          <a href="#">[PDF]</a>
+        <li class="pub">
+          <span class="year">[YEAR]</span>
+          <div class="pub-body">
+            <p class="pub-title">[TITLE OF PAPER]</p>
+            <p class="pub-meta">[AUTHORS]</p>
+            <p class="pub-venue">[VENUE / JOURNAL]</p>
+            <p class="pub-links"><a class="btn" href="#">PDF</a></p>
+          </div>
         </li>
-        <li>
-          [AUTHORS]. <em>[TITLE OF PAPER]</em>. [VENUE], [YEAR].
-          <a href="#">[PDF]</a>
+        <li class="pub">
+          <span class="year">[YEAR]</span>
+          <div class="pub-body">
+            <p class="pub-title">[TITLE OF PAPER]</p>
+            <p class="pub-meta">[AUTHORS]</p>
+            <p class="pub-venue">[VENUE / JOURNAL]</p>
+            <p class="pub-links"><a class="btn" href="#">PDF</a></p>
+          </div>
         </li>
       </ol>
     </section>
 
-    <section>
+    <section class="section">
       <h2>Under Review</h2>
       <ol class="pubs">
-        <li>
-          [AUTHORS]. <em>[TITLE OF PAPER]</em>. Submitted to [VENUE], [YEAR].
+        <li class="pub">
+          <span class="year pending">submitted</span>
+          <div class="pub-body">
+            <p class="pub-title">[TITLE OF PAPER]</p>
+            <p class="pub-meta">[AUTHORS]</p>
+            <p class="pub-venue">Submitted to [VENUE], [YEAR]</p>
+          </div>
         </li>
       </ol>
-    </section>
-
-    <section>
-      <h2>Projects</h2>
-      <ul class="projects">
-        <li>
-          <h3>[PROJECT NAME]</h3>
-          <p>[ONE-OR-TWO-SENTENCE DESCRIPTION OF THE PROJECT.]</p>
-          <p><a href="https://github.com/[USERNAME]/[REPO]">Repository</a></p>
-        </li>
-        <li>
-          <h3>[PROJECT NAME]</h3>
-          <p>[ONE-OR-TWO-SENTENCE DESCRIPTION OF THE PROJECT.]</p>
-          <p><a href="https://github.com/[USERNAME]/[REPO]">Repository</a></p>
-        </li>
-        <li>
-          <h3>[PROJECT NAME]</h3>
-          <p>[ONE-OR-TWO-SENTENCE DESCRIPTION OF THE PROJECT.]</p>
-          <p><a href="https://github.com/[USERNAME]/[REPO]">Repository</a></p>
-        </li>
-      </ul>
     </section>
 
     <footer>
       <p>&copy; [YEAR] [YOUR NAME]</p>
     </footer>
 
-  </main>
+  </div>
 </body>
 </html>
