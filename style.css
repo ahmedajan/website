@@ -1,0 +1,131 @@
+:root {
+  --fg: #1a1a1a;
+  --muted: #555;
+  --bg: #ffffff;
+  --accent: #0b5fff;
+  --border: #e5e5e5;
+  --max-width: 720px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #e8e8e8;
+    --muted: #a0a0a0;
+    --bg: #121212;
+    --accent: #7aa8ff;
+    --border: #2a2a2a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+  background: #f0f0f0;
+}
+
+.hero h1 {
+  font-size: 1.8rem;
+  margin: 0.25rem 0 0.25rem;
+  font-weight: 600;
+}
+
+.tagline {
+  color: var(--muted);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.bio p {
+  margin: 0 0 1.5rem;
+}
+
+.links {
+  margin-bottom: 2rem;
+}
+
+.link-row {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}
+
+.pubs {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+.pubs li {
+  margin-bottom: 0.85rem;
+}
+
+.projects {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.projects li {
+  margin-bottom: 1.5rem;
+}
+.projects p {
+  margin: 0.25rem 0;
+}
+
+footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
