@@ -178,6 +178,13 @@ a:hover {
   text-decoration: none;
   font-style: italic;
 }
+.list p strong {
+  color: var(--fg-strong);
+  font-weight: 600;
+}
+.list p em {
+  font-style: italic;
+}
 
 /* ---------- mobile ---------- */
 
