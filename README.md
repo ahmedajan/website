@@ -1,61 +1,37 @@
-# Personal Website
+# Personal Website — Ajan Ahmed
 
-A minimal academic-portfolio static site (plain HTML + CSS), modeled on
-<https://tim.affects.ai/>.
+Multi-page academic-portfolio site (plain HTML + CSS), generated from the master CV.
+Styling: dark theme, Inter font, sticky profile sidebar (`style.css`).
 
-## Files
+## Structure
 
-- `index.html` — page content with `[PLACEHOLDERS]` to fill in
-- `style.css` — styling (light + dark mode)
-- `avatar.jpg` — **you need to add this** (your profile photo, square crop, ~400×400 works well)
+- `index.html` — home: about + links to every section
+- Section pages: `education.html`, `research.html`, `projects.html`, `publications.html`, `talks.html`,
+  `teaching.html`, `funding.html`, `experience.html`, `honors.html`, `skills.html`, `cv.html`
+- Detail pages (one per item): `education/`, `research/`, `projects/`, `publications/`, `talks/`,
+  `teaching/`, `experience/`, `skills/`
+- `Ajan_Ahmed_CV.pdf` — public CV (no phone, no references, no private notes)
+- `_build/build_site.py` — generator (not published; folders starting with `_` are ignored by GitHub Pages)
 
-## Fill in your content
+## Rebuild after editing the master CV
 
-Open `index.html` and replace every `[BRACKETED]` value:
+```powershell
+cd "D:\Master CV\website"
+python _build/build_site.py
+```
 
-- `[YOUR NAME]`, `[CREDENTIALS]`, `[ROLE / AFFILIATION]`
-- `[BIO]` paragraph
-- Links: `[USERNAME]`, `[ORCID-ID]`, `[YOU]@example.com`
-- Publication entries (`[AUTHORS]`, `[TITLE]`, `[VENUE]`, `[YEAR]`)
-- Project entries
-- `[YEAR]` in the footer
-
-Delete any section you don't need (e.g. *Under Review*).
+Requires Python with `markdown` (`pip install markdown`) and Microsoft Edge (for the PDF).
+The generator applies the public-site rules: no GPA, phone, references, private notes, NDA result figures,
+or placeholder entries; J9 excluded unless `INCLUDE_J9 = True`.
 
 ## Preview locally
 
-Just double-click `index.html`, or run a tiny server:
-
 ```powershell
-cd E:\website
-python -m http.server 8000
+python -m http.server 8000 --directory "D:\Master CV\website"
 ```
 
 Then open <http://localhost:8000>.
 
-## Deploy to GitHub Pages
+## Publish
 
-1. Create a new GitHub repo. For a personal site at
-   `https://<username>.github.io`, name the repo **`<username>.github.io`**.
-   Otherwise any repo name works and the site will be at
-   `https://<username>.github.io/<repo>/`.
-2. Push these files:
-
-   ```powershell
-   cd E:\website
-   git init
-   git add .
-   git commit -m "Initial site"
-   git branch -M main
-   git remote add origin https://github.com/<username>/<repo>.git
-   git push -u origin main
-   ```
-3. On GitHub: **Settings → Pages → Source: Deploy from a branch →
-   Branch: `main` / `(root)` → Save**.
-4. Wait ~1 minute, then visit the URL Pages shows you.
-
-## Custom domain (optional)
-
-Add a `CNAME` file containing just your domain
-(e.g. `you.example.com`), then configure DNS at your registrar per
-<https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site>.
+Commit and push to `main`; GitHub Pages serves it at <https://ahmedajan.github.io/website/>.

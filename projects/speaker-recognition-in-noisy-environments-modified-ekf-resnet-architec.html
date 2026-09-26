@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>PR14. Speaker Recognition in Noisy Environments: Modified EKF-ResNet Architecture (CITeR 23S-07C) | Ajan Ahmed</title>
+  <meta name="description" content="Ajan Ahmed: voice biometrics, speaker recognition, biometric quality, deepfake audio, trustworthy AI" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?display=swap&family=Inter:ital,wght@0,400;0,500;0,600;1,400" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div id="main">
+    <div class="inner">
+     <aside class="profile">
+      <a href="../index.html"><img class="avatar" src="../avatar.jpg" alt="Ajan Ahmed" /></a>
+      <h1><a class="plain" href="../index.html">Ajan Ahmed</a></h1>
+      <p class="role">Graduate Research Assistant &middot; Ph.D. dissertation defended (ECE)</p>
+      <p class="bio">
+  <span>Ph.D. in Electrical and Computer Engineering, Clarkson University (dissertation defended June 2026; degree conferral expected December 2026). M.Eng. in Electrical and Computer Engineering, Southern Illinois University Carbondale; B.Sc. in Electrical and Electronic Engineering, North South University, Bangladesh.</span>
+  <span>Research on making voice biometrics reliable in the real world &mdash; speaker recognition, biometric quality assessment and standardization, deepfake audio, and trustworthy AI. Based in Edmonton, Alberta.</span>
+</p>
+      <ul class="icons">
+  <li><a href="https://github.com/ahmedajan" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.69-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg></a></li>
+  <li><a href="https://scholar.google.com/citations?user=BlD713QAAAAJ" aria-label="Google Scholar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.84 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.16 4.44L24 9.5z"/></svg></a></li>
+  <li><a href="https://orcid.org/0009-0002-7000-7809" aria-label="ORCID"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zM7.37 17.97H5.85V7.41h1.52v10.56zm-.76-11.91a.95.95 0 1 1 0-1.9.95.95 0 0 1 0 1.9zm10.13 11.91h-3.49V7.41h3.39c3.22 0 4.7 2.3 4.7 5.28 0 3.24-2.03 5.28-4.6 5.28zm-.18-9.18h-1.79v7.8h1.69c2.39 0 3.32-1.73 3.32-3.9 0-2.36-1.5-3.9-3.22-3.9z"/></svg></a></li>
+  <li><a href="https://www.linkedin.com/in/ajan-ahmed" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a></li>
+  <li><a href="mailto:aahmed@clarkson.edu" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2.4.4L12 11l7.6-5.6H4.4zM20 7.2l-7.4 5.5a1 1 0 0 1-1.2 0L4 7.2V19h16V7.2z"/></svg></a></li>
+</ul>
+      <nav class="site-nav"><ul>
+<li><a href="../index.html">Home</a></li>
+<li><a href="../education.html">Education</a></li>
+<li><a href="../research.html">Research Experience</a></li>
+<li><a href="../projects.html" class="active">Projects</a></li>
+<li><a href="../publications.html">Publications</a></li>
+<li><a href="../talks.html">Invited Talks</a></li>
+<li><a href="../teaching.html">Teaching</a></li>
+<li><a href="../funding.html">Research Funding</a></li>
+<li><a href="../experience.html">Work Experience</a></li>
+<li><a href="../honors.html">Honors & Certifications</a></li>
+<li><a href="../skills.html">Skills</a></li>
+<li><a href="../cv.html">CV</a></li>
+      </ul></nav>
+     </aside>
+     <section class="content">
+<p class="crumb"><a href="../projects.html">&larr; Projects</a></p>
+<h2>PR14. Speaker Recognition in Noisy Environments: Modified EKF-ResNet Architecture (CITeR 23S-07C)</h2>
+<div class="prose">
+<ul>
+<li><strong>Dates:</strong> January 2024 – Fall 2024 (progress reported at the CITeR Spring 2024 Program Review; invited talk at the International Martigny Biometrics Workshop, May 2025)</li>
+<li><strong>Role:</strong> lead student researcher; co-wrote the funded proposal</li>
+<li><strong>Team:</strong> A. Ahmed, S. Purnapatra, Dr. M. Imtiaz (Clarkson University)</li>
+<li><strong>Funding:</strong> NSF CITeR (IUCRC), $45K (see Research Funding)</li>
+<li><strong>Overview:</strong> Noisy environments sharply reduce automatic speaker recognition accuracy, and most public datasets simulate noise artificially. This project built a voice preprocessing and denoising pipeline, assembled real-world noisy and longitudinal voice datasets, and measured how denoising affects commercial speaker verification (Neurotechnology VeriSpeak), comparing classical (Kalman filter) and deep-learning (Wave-U-Net) denoising. Findings fed directly into the VPQAD dataset, the speech-enhancement benchmark (BDCC 2026), and the Voice Quality Index.</li>
+<li><strong>Duties:</strong><ul>
+<li>Reviewed the literature on speaker recognition under noise, speech enhancement, and speech-quality metrics</li>
+<li>Designed and ran real-world noisy adult voice collection (51 subjects in cafeterias and teaching labs with live background speech), including the IRB protocol, recording setup, and participant scheduling</li>
+<li>Curated evaluation data: the Clarkson longitudinal child voice dataset (14+ collections over 7+ years, ages 4–18) and the public SpEAR corpus (clean speech with controlled Gaussian noise)</li>
+<li>Built the preprocessing pipeline: resampling, normalization, high-pass Butterworth filtering, (extended) Kalman filtering, energy-based VAD segmentation, framing (1.5–46.5 ms, 50% overlap), MFCC extraction</li>
+<li>Implemented and adapted Wave-U-Net (1D CNN source separation trained on MUSDB18 / ccMixter) for speech denoising</li>
+<li>Built evaluation tooling: frame-wise FFT SNR, before / after quality metrics, and VeriSpeak 1:1, 1:N, and N:N match scoring across subjects, collections, and ages</li>
+<li>Trained and tested a neural-network speaker-recognition baseline on SpEAR (train / validation / test splits)</li>
+<li>Analyzed why the Kalman filter was inconsistent across subjects and moved to deep-learning denoising; proposed a ResNet speaker model and a meta-learning (MAML) denoiser for future work</li>
+<li>Wrote progress reports and presented to CITeR industry and government members; managed code, data, and documentation</li>
+</ul>
+</li>
+<li><strong>Key results:</strong><ul>
+<li>Kalman filtering raised SNR substantially on some samples (e.g. from 0.23 dB to 37.65 dB) but was inconsistent across subjects</li>
+<li>Wave-U-Net increased child-voice SNR by 26.99–53.88 dB and consistently improved VeriSpeak match scores across collections</li>
+<li>Speaker-recognition accuracy on the SpEAR test set: 30% unfiltered → 60% with the Kalman filter → <strong>70% with Wave-U-Net</strong></li>
+</ul>
+</li>
+<li><strong>Tech stack:</strong><ul>
+<li>Languages: Python, MATLAB</li>
+<li>Signal processing: SciPy signal, NumPy (FFT), librosa, FilterPy / pykalman, MATLAB Signal Processing Toolbox (butter, filtfilt), webrtcvad / energy VAD, python_speech_features</li>
+<li>Deep learning: PyTorch / TensorFlow (Wave-U-Net), ResNet speaker embeddings; MUSDB18, ccMixter training data</li>
+<li>Biometrics: Neurotechnology VeriSpeak SDK (1:1, 1:N, N:N matching)</li>
+<li>Data and tools: Audacity, Audio-Technica AT2020 and Shure SM58 microphones, Jupyter, Git / GitHub, Matplotlib</li>
+</ul>
+</li>
+<li><strong>Highlights:</strong><ul>
+<li>Led a CITeR-funded ($45K) project on speaker recognition in noisy environments, building a denoising and preprocessing pipeline (Kalman filter, VAD, MFCC, Wave-U-Net) evaluated with a commercial speaker-recognition engine (Neurotechnology VeriSpeak).</li>
+<li>Collected a real-world noisy voice dataset from 51 adults in cafeterias and labs, and combined it with a 7-year longitudinal child voice corpus (ages 4–18) and the SpEAR benchmark for validation.</li>
+<li>Raised speaker-recognition accuracy from 30% to 70% on noisy test data and increased child-voice SNR by up to 54 dB using deep-learning (Wave-U-Net) denoising, outperforming classical Kalman filtering.</li>
+<li>Presented results to industry and government sponsors (CITeR Program Review) and in an invited talk at the International Martigny Biometrics Workshop (Switzerland); the findings led to the VPQAD dataset and the Voice Quality Index.</li>
+</ul>
+</li>
+</ul>
+</div>
+      <footer class="foot">&copy; 2026 Ajan Ahmed &middot; Open Work Permit (Canada)</footer>
+     </section>
+    </div>
+  </div>
+</body>
+</html>
