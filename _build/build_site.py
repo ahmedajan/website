@@ -12,7 +12,7 @@ INCLUDE_J9 = True
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT.parent / "Master CV" / "master_cv.md"
-BASE_TITLE = "Ajan Ahmed"
+BASE_TITLE = "Ajan Ahmed, PhD"
 
 # ---------------------------------------------------------------- helpers
 def slug(text):
@@ -95,8 +95,8 @@ ICONS = """<ul class="icons">
 </ul>"""
 
 BIO = """<p class="bio">
-  <span>Ph.D. in Electrical and Computer Engineering, Clarkson University (dissertation defended June 2026; degree conferral expected December 2026). M.Eng. in Electrical and Computer Engineering, Southern Illinois University Carbondale; B.Sc. in Electrical and Electronic Engineering, North South University, Bangladesh.</span>
-  <span>Research on making voice biometrics reliable in the real world &mdash; speaker recognition, biometric quality assessment and standardization, deepfake audio, and trustworthy AI. Based in Edmonton, Alberta.</span>
+  <span>Dr. Ahmed holds a Ph.D. in Electrical and Computer Engineering from Clarkson University, an M.Eng. in Electrical and Computer Engineering from Southern Illinois University Carbondale, and a B.Sc. in Electrical and Electronic Engineering from North South University, Bangladesh.</span>
+  <span>His research makes voice biometrics reliable in the real world &mdash; speaker recognition, biometric quality assessment and standardization, deepfake audio, and trustworthy AI. Based in Edmonton, Alberta.</span>
 </p>"""
 
 def page(title, content, depth=0, active=""):
@@ -112,7 +112,7 @@ def page(title, content, depth=0, active=""):
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <title>{html.escape(title)}{'' if title == BASE_TITLE else ' | ' + BASE_TITLE}</title>
-  <meta name="description" content="Ajan Ahmed: voice biometrics, speaker recognition, biometric quality, deepfake audio, trustworthy AI" />
+  <meta name="description" content="Ajan Ahmed, PhD: voice biometrics, speaker recognition, biometric quality, deepfake audio, trustworthy AI" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?display=swap&family=Inter:ital,wght@0,400;0,500;0,600;1,400" rel="stylesheet" />
@@ -122,9 +122,9 @@ def page(title, content, depth=0, active=""):
   <div id="main">
     <div class="inner">
      <aside class="profile">
-      <a href="{up}index.html"><img class="avatar" src="{up}avatar.jpg" alt="Ajan Ahmed" /></a>
-      <h1><a class="plain" href="{up}index.html">Ajan Ahmed</a></h1>
-      <p class="role">Graduate Research Assistant &middot; Ph.D. dissertation defended (ECE)</p>
+      <a href="{up}index.html"><img class="avatar" src="{up}avatar.jpg" alt="Ajan Ahmed, PhD" /></a>
+      <h1><a class="plain" href="{up}index.html">Ajan Ahmed, PhD</a></h1>
+      <p class="role">Electrical &amp; Computer Engineering &middot; Voice Biometrics &amp; Trustworthy AI</p>
       {BIO}
       {icons}
       <nav class="site-nav"><ul>
@@ -133,7 +133,7 @@ def page(title, content, depth=0, active=""):
      </aside>
      <section class="content">
 {content}
-      <footer class="foot">&copy; 2026 Ajan Ahmed &middot; Open Work Permit (Canada)</footer>
+      <footer class="foot">&copy; 2026 Ajan Ahmed, PhD &middot; Open Work Permit (Canada)</footer>
      </section>
     </div>
   </div>
@@ -290,7 +290,7 @@ write("skills.html", "Skills", sk, active="skills.html")
 
 # ---------------------------------------------------------------- CV page
 cv = """<h2>Curriculum Vitae</h2>
-<div class="prose"><p>A complete, detailed CV (all sections) is available as a PDF.</p>
+<div class="prose"><p>Dr. Ahmed's complete, detailed CV (all sections) is available as a PDF.</p>
 <p><a href="Ajan_Ahmed_CV.pdf">Download the CV (PDF)</a></p>
 <p>Contact: <a href="mailto:aahmed@clarkson.edu">aahmed@clarkson.edu</a> &middot; Edmonton, Alberta, Canada &middot; Open Work Permit (Canada), no sponsorship required.</p></div>"""
 write("cv.html", "CV", cv, active="cv.html")
@@ -300,7 +300,7 @@ print("site built in", ROOT)
 # ---------------------------------------------------------------- public CV PDF (for cv.html)
 import subprocess
 pub = clean_public(raw)
-pub = pub.replace("# Master CV — Ajan Ahmed", "# Ajan Ahmed", 1)
+pub = pub.replace("# Master CV — Ajan Ahmed, PhD", "# Ajan Ahmed, PhD", 1)
 pub = re.sub(r"^> .*\n(>.*\n)*", "", pub, flags=re.M)
 for sec in ("Summary Variants", "References", "Notes / Achievement Bank"):
     pub = re.sub(rf"^## {re.escape(sec)}\n.*?(?=^## |\Z)", "", pub, flags=re.S | re.M)
@@ -314,7 +314,7 @@ pub = re.sub(r"^#{2,4} \[(Project Name|Job Title)\].*?(?=^#{2,4} |\Z)", "", pub,
 pub_html = markdown.markdown(fix_indent(pub), extensions=["tables", "sane_lists"])
 PDF_CSS = """
 @page { size: Letter; margin: 0.65in 0.7in 0.75in 0.7in;
-  @bottom-center { content: "Ajan Ahmed | CV | Page " counter(page) " of " counter(pages);
+  @bottom-center { content: "Ajan Ahmed, PhD | CV | Page " counter(page) " of " counter(pages);
                    font-family: 'Segoe UI', Arial, sans-serif; font-size: 8pt; color: #666; } }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 body { font-family: 'Segoe UI', Calibri, Arial, sans-serif; font-size: 9.6pt; line-height: 1.38; color: #1d1d1f; }
@@ -327,7 +327,7 @@ table { border-collapse: collapse; width: 100%; font-size: 8.8pt; } th, td { bor
 tr { break-inside: avoid; } a { color: #1d1d1f; text-decoration: none; }
 """
 tmp_html = ROOT / "_build" / "cv_public.html"
-tmp_html.write_text(f'<!doctype html><html><head><meta charset="utf-8"><title>Ajan Ahmed — CV</title><style>{PDF_CSS}</style></head><body>{pub_html}</body></html>', encoding="utf-8")
+tmp_html.write_text(f'<!doctype html><html><head><meta charset="utf-8"><title>Ajan Ahmed, PhD — CV</title><style>{PDF_CSS}</style></head><body>{pub_html}</body></html>', encoding="utf-8")
 edge = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 subprocess.run([edge, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
                 f"--print-to-pdf={ROOT / 'Ajan_Ahmed_CV.pdf'}", tmp_html.as_uri()], check=True, timeout=180)
