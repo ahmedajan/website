@@ -49,10 +49,28 @@
 <h2>Biomedical Signal Processing &amp; ML (teaching: EE 402/502)</h2>
 <div class="prose">
 <ul>
+<li><strong>Wearable and metabolic health data: sleep staging (heart rate, HRV, accelerometry), stress detection (EDA / GSR, HRV; WESAD), continuous glucose monitor (CGM) trend forecasting (OhioT1DM), per-person baselines and subject-wise evaluation</strong> — Co-Instructor, EE 402/502 (course projects); CUADS (stress and emotion physiology)<ul>
+<li>Libraries: NeuroKit2, pandas, scikit-learn, statsmodels, PyTorch</li>
+</ul>
+</li>
 <li><strong>Biomedical signals: ECG, EEG, EMG, PPG, EDA / GSR, respiration, accelerometer / IMU; filtering, denoising, artifact removal, R-peak and QRS detection, heart rate variability, time / frequency / time-frequency features (FFT, wavelets, spectrograms)</strong> — Co-Instructor and TA, EE 402/502; HI-POCT gait paper; CUADS affective dataset<ul>
 <li>Languages: Python, MATLAB</li>
 <li>Libraries: SciPy signal, NumPy, NeuroKit2, BioSPPy, MNE-Python, WFDB, HeartPy, PyWavelets, pyHRV; MATLAB Signal Processing Toolbox, Wavelet Toolbox, EEGLAB</li>
 <li>Data: PhysioNet (MIT-BIH Arrhythmia, PTB-XL), UCI HAR, DEAP / WESAD (affective computing)</li>
+</ul>
+</li>
+<li><strong>EMG and IMU gesture and intent detection: surface EMG (envelope, RMS, onset detection), jaw-clench and hand-gesture detection, head-motion and gesture recognition from IMU, sensor fusion of EMG + IMU, sliding-window streaming classification</strong> — TA / Co-Instructor EE 402/502 (EMG / IMU lab); EE 513 booklet (IMU gesture recognition); AIDrawPen (mentored)<ul>
+<li>Languages: Python, C / C++, MATLAB</li>
+<li>Libraries: SciPy signal, NeuroKit2, BioSPPy, PyTorch, TensorFlow / Keras, TensorFlow Lite Micro, CMSIS-NN; Data: NinaPro, CapgMyo, UCI HAR</li>
+</ul>
+</li>
+<li><strong>Temporal deep learning for biosignals: 1D CNNs, temporal convolutional networks (TCN, dilated causal convolutions), CNN-LSTM hybrids, lightweight models for edge inference</strong> — CUADS / UEMCON benchmark; EE 402/502<ul>
+<li>Libraries: PyTorch, TensorFlow / Keras, pytorch-tcn, keras-tcn</li>
+</ul>
+</li>
+<li><strong>Biosignal evaluation: subject-wise and leave-one-subject-out splits, cross-session drift, electrode contact and fit effects, leakage checks between training and test sets</strong> — CUADS benchmark; children longitudinal study (drift over years); EE 402/502</li>
+<li><strong>Multi-device data synchronization: Lab Streaming Layer (LSL), BLE data transport, timestamp alignment across sensors and recorders</strong> — CUADS (Shimmer3 + app), ELAD-SVDSR (5 synchronized microphones), VSEA-DC (2 devices), AIDrawPen (BLE)<ul>
+<li>Libraries / Tools: pylsl, LabRecorder, pyxdf, bleak (BLE), Shimmer SDK</li>
 </ul>
 </li>
 <li><strong>ML on biomedical signals: feature extraction, classification (arrhythmia, emotion, activity, stress), deep learning (1D CNNs, LSTMs), cross-validation by subject, class imbalance, clinical evaluation metrics (sensitivity, specificity)</strong> — Co-Instructor and TA, EE 402/502<ul>

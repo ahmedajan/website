@@ -45,12 +45,35 @@ def inline(md):
     h = markdown.markdown(md.strip())
     return re.sub(r"^<p>|</p>$", "", h)
 
+
+def drop_unreviewed(md):
+    """Public site: drop job-posting fill-ins (tagged 'fill-in' or 'added ..., ... posting)') and their sub-bullets,
+    and strip the remaining '(added <date>)' markers. Ajan reviews fill-ins before they go public."""
+    out, skip_indent = [], None
+    for line in md.split("\n"):
+        stripped = line.lstrip()
+        indent = len(line) - len(stripped)
+        if skip_indent is not None:
+            if stripped and indent > skip_indent:
+                continue
+            skip_indent = None
+        low = line.lower()
+        if stripped.startswith("- ") and ("fill-in" in low or re.search(r"\(added [^)]*postings?\)", line)):
+            skip_indent = indent
+            continue
+        out.append(line)
+    md = "\n".join(out)
+    md = re.sub(r"\s*\(added [A-Z][a-z]{2} \d{1,2}, \d{4}\)", "", md)
+    return md
+
 def clean_public(md):
+    md = drop_unreviewed(md)
     md = re.sub(r"<!--.*?-->\n?", "", md, flags=re.S)
     md = re.sub(r"^\s*- \*\*Tags:\*\*.*\n", "", md, flags=re.M)
     md = re.sub(r"^\s*- \*\*Industry framing:\*\*.*\n", "", md, flags=re.M)
     md = re.sub(r"^\s*- \*\*GPA.*\n", "", md, flags=re.M)
     md = re.sub(r"^\s*- [^\n]*(\|r\||under 8%)[^\n]*\n", "", md, flags=re.M)  # NDA result figures (VSEA)
+    md = re.sub(r"^\s*- [^\n]*keep off the public website[^\n]*\n", "", md, flags=re.M)  # pre-release results (e.g. CITeR FUQI)
     md = re.sub(r"3\.905\s*/\s*4\.0 cumulative graduate GPA,?\s*(with )?", "", md)  # never publish GPA
     md = re.sub(r"^\s*- [^\n]*\(to add[^\n]*\n", "", md, flags=re.M)
     md = re.sub(r"^\s*-\s*$\n", "", md, flags=re.M)
@@ -184,7 +207,7 @@ cards = [
     ("publications.html", "Publications", "Journal articles, conference papers, datasets, software"),
     ("talks.html", "Invited Talks", "Invited seminars and workshop talks, 2024–2026"),
     ("teaching.html", "Teaching", "~665 students, co-instructor, 2 course booklets, mentoring"),
-    ("funding.html", "Research Funding", "11 funded proposals co-written, over $1.1M (NSF, FBI, DHS, CITeR)"),
+    ("funding.html", "Research Funding", "12 funded proposals co-written, over $1.1M (NSF, FBI, DHS, CITeR)"),
     ("experience.html", "Work Experience", "BlackBerry (RIM), McGill University, and more"),
     ("honors.html", "Honors & Certifications", "3MT 1st Prize, Best Oral Presentation, scholarships"),
     ("skills.html", "Skills", "Technical and professional skills"),

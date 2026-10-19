@@ -58,11 +58,13 @@
 <li>Ran a commercial system (VeriSpeak), 3 deep-learning backends (ECAPA-TDNN, ResNet, ECAPA2), and 10 interpretable i-vector / PLDA pipelines built on hand-crafted feature families (MFCC, LPCC, formants, pitch, etc.)</li>
 <li>Reported FNMR at FMR = 0.1% with bootstrapped confidence intervals per age and time gap; built heatmaps by enrollment age × time gap</li>
 <li>Modeled drivers with nested LMER and GLMM mixed-effects models (time gap, enrollment age, pitch, formant drift, duration, puberty)</li>
+<li>Treated the collection as an observational study: separated the effect of time gap from confounders (enrollment age, puberty, recording session and device) with inverse-probability weighting and double machine learning (DoubleML / EconML, gradient-boosting nuisance models), and estimated heterogeneous effects by age group with causal forests</li>
 <li>Designed an intervention-based causal ablation and age-normalization method (z-score, linear, polynomial growth models) and re-scored verification</li>
+<li>Used LLMs (Claude, ChatGPT) to write and debug R / Python analysis code for the LMER / GLMM models and plots, summarize related literature, and draft the reviewer response</li>
 <li>Wrote the manuscript, led the response to reviewers, and supervised 2 student co-authors</li>
 </ul>
 </li>
-<li><strong>Tech stack:</strong> Python, R (lme4, lmerTest), statsmodels, NumPy / SciPy, scikit-learn, Kaldi-style i-vector / PLDA, SpeechBrain, Neurotechnology VeriSpeak SDK, Matplotlib / seaborn</li>
+<li><strong>Tech stack:</strong> Python, R (lme4, lmerTest), statsmodels, NumPy / SciPy, scikit-learn, Kaldi-style i-vector / PLDA, SpeechBrain, Neurotechnology VeriSpeak SDK, Matplotlib / seaborn; LLMs: Claude, ChatGPT</li>
 <li><strong>Highlights:</strong><ul>
 <li>Led a 9-year longitudinal study of speaker verification in 292 children (ages 4–18), showing FNMR climbs to ~33% after 5 years and ~60% after 7 years at FMR = 0.1%.</li>
 <li>Identified the drivers of degradation (time gap, pitch, and formant drift) with LMER / GLMM mixed-effects models and causal feature ablation across 14 verification systems.</li>

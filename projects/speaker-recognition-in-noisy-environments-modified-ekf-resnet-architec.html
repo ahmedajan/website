@@ -59,8 +59,9 @@
 <li>Designed and ran real-world noisy adult voice collection (51 subjects in cafeterias and teaching labs with live background speech), including the IRB protocol, recording setup, and participant scheduling</li>
 <li>Curated evaluation data: the Clarkson longitudinal child voice dataset (14+ collections over 7+ years, ages 4–18) and the public SpEAR corpus (clean speech with controlled Gaussian noise)</li>
 <li>Built the preprocessing pipeline: resampling, normalization, high-pass Butterworth filtering, (extended) Kalman filtering, energy-based VAD segmentation, framing (1.5–46.5 ms, 50% overlap), MFCC extraction</li>
+<li>Measured the acoustics of the recording rooms (cafeteria, labs, HVAC lab, vehicle cabin): played exponential sine sweeps and short pulses through a loudspeaker and recorded them, recovered room impulse responses by deconvolution (matched filtering), picked direct-path and echo arrival times (time of flight), and estimated reverberation decay (RT60, C50) and background-noise spectra, then used them to check the simulated impulse responses and noise used for augmentation</li>
 <li>Implemented and adapted Wave-U-Net (1D CNN source separation trained on MUSDB18 / ccMixter) for speech denoising</li>
-<li>Built evaluation tooling: frame-wise FFT SNR, before / after quality metrics, and VeriSpeak 1:1, 1:N, and N:N match scoring across subjects, collections, and ages</li>
+<li>Built evaluation tooling: frame-wise FFT SNR, before / after quality metrics, and VeriSpeak 1:1, 1:N (ranked candidate lists for speaker identification), and N:N match scoring across subjects, collections, and ages</li>
 <li>Trained and tested a neural-network speaker-recognition baseline on SpEAR (train / validation / test splits)</li>
 <li>Analyzed why the Kalman filter was inconsistent across subjects and moved to deep-learning denoising; proposed a ResNet speaker model and a meta-learning (MAML) denoiser for future work</li>
 <li>Wrote progress reports and presented to CITeR industry and government members; managed code, data, and documentation</li>

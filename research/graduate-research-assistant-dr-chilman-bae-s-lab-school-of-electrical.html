@@ -58,6 +58,10 @@
 <li>LPS-induced neuroinflammation model; pharmacology (Yoda1 agonist, GsMTx4 antagonist); Piezo1 gene silencing (siRNA)</li>
 <li>Calcium imaging (Cal-520 AM, confocal microscopy) and wound-healing cell-migration assays</li>
 <li>Extensive hands-on microscopy: brightfield, phase contrast, DIC, epifluorescence, confocal, live-cell imaging</li>
+<li>Spectral imaging on the Olympus FV3000 (TruSpectral detectors): acquired lambda-scan (x, y, λ) image cubes, a hyperspectral-style data format, and separated overlapping fluorophore emissions (Cal-520, Fluo-4, DAPI / Hoechst, GFP-tagged constructs) and cell autofluorescence with linear spectral unmixing from reference spectra; used non-negative matrix factorization (NMF) and PCA in Python for blind unmixing when reference spectra were missing</li>
+<li>Ratiometric calcium imaging with Fura-2 (340 / 380 nm excitation): calibrated fluorescence ratios to intracellular Ca²⁺ concentration (in-situ Rmin / Rmax and Kd, Grynkiewicz equation), linking the measured optical signal to a chemical quantity</li>
+<li>Imaging-sensor calibration and data quality: dark-frame and flat-field correction, background subtraction, photobleaching correction, fixed laser power, detector gain, and pinhole settings, checks with fluorescent reference slides and beads across sessions and microscopes, and SOPs so images from different days and setups stayed comparable; saved acquisition metadata with every file for traceability</li>
+<li>Automated image analysis in Python (tifffile, scikit-image, NumPy): stack loading, drift registration, cell segmentation, ROI ΔF/F₀ traces, and per-image quality metrics (saturation, focus, signal-to-background) that flagged bad acquisitions for re-imaging</li>
 <li>Statistical analysis (Mann-Whitney, one-way ANOVA), figures, and manuscript editing</li>
 </ul>
 </li>

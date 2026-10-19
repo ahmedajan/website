@@ -58,6 +58,9 @@
 <li>Built the audio preprocessing pipeline: FFmpeg resampling to 24 kHz mono, multi-band spectral gating, dynamic-range compression, fixed-length cropping and padding</li>
 <li>Generated emotion-augmented training data and retrained anti-spoofing detectors (RawNet2, AASIST) on ASVspoof 2019 LA plus emotional speech (ESD)</li>
 <li>Ran cross-emotional, cross-synthesizer, and cross-dataset evaluations with paired t-tests, plus ablations of loss weights and discriminator criteria</li>
+<li>Used LLM coding assistants (Claude Code, GitHub Copilot) to implement and debug the GAN, TTS, and evaluation code and to organize ablation runs</li>
+<li>Fine-tuned transformer front-ends (Wav2Vec2, WavLM) for spoof detection with parameter-efficient fine-tuning (LoRA / QLoRA via Hugging Face PEFT)</li>
+<li>Trained sequence models (transformer encoders, attention decoders, HiFi-GAN vocoder) with multi-GPU data and model parallelism (PyTorch DDP / FSDP) and mixed precision</li>
 <li>Evaluated speaker similarity with Neurotechnology VeriSpeak; wrote the manuscript; guided a graduate collaborator</li>
 </ul>
 </li>

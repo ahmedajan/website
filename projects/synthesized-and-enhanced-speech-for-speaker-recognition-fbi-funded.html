@@ -54,6 +54,7 @@
 <li><strong>Overview:</strong> Evaluated how speech enhancement (denoising) and synthetic speech affect speaker-recognition models, for forensic and law-enforcement use.</li>
 <li><strong>Duties:</strong><ul>
 <li>Benchmarked deep-learning speech enhancement (Wave-U-Net, CMGAN, U-Net) on unseen real-world corpora (SpEAR, VPQAD, Clarkson) with SNR, PESQ, and VeriSpeak speaker-verification scores</li>
+<li>Ran enhancement models in streaming mode on overlapping audio chunks (overlap-add), measuring real-time factor, latency, and GPU memory, and applied FP16 and TorchScript / torch.compile to speed up inference</li>
 <li>Evaluated synthetic and cloned speech against speaker-recognition systems, and helped build interpretable deepfake-detection baselines on the Fake-or-Real dataset</li>
 <li>Analyzed trade-offs between noise suppression, perceptual quality, and speaker-identity preservation; wrote reports for the sponsor</li>
 </ul>

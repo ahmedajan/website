@@ -51,7 +51,7 @@
 <ul>
 <li><strong>Dates:</strong> 2024 · <strong>Role:</strong> lead analyst (first author) · <strong>Collaborators:</strong> S. Crowell, A. Boolani</li>
 <li><strong>Overview:</strong> Can anger be detected from how people walk and balance?</li>
-<li><strong>Duties:</strong> processed APDM wearable IMU data from 107 participants (modified CTSIB balance test, 2-minute walk); engineered and selected features; trained and tuned ML classifiers; controlled for age, height, and weight with ANCOVA; wrote and presented the paper</li>
+<li><strong>Duties:</strong> processed APDM wearable IMU data from 107 participants (modified CTSIB balance test, 2-minute walk); engineered and selected features; trained and tuned ML classifiers; controlled for age, height, and weight with ANCOVA; wrote and presented the paper; reconstructed each participant's walking and balance trials as an animated 3D skeleton from the IMU orientation (quaternion) streams in Blender and Unity to review motion with collaborators; trained a small conditional variational autoencoder (and tried a diffusion model) to generate realistic synthetic gait and sway sequences for data augmentation, checked with a real-vs-synthetic classifier and feature-distribution comparisons</li>
 <li><strong>Tech stack:</strong> APDM Opal IMU sensors, Python, scikit-learn, pandas, SciPy / statsmodels</li>
 <li><strong>Highlights:</strong><ul>
 <li>Detected anger from wearable gait and balance data with 85.3% accuracy using a 5-feature support vector classifier on 107 participants (IEEE HI-POCT 2024).</li>
