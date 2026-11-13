@@ -4,11 +4,34 @@ Run:  python _build/build_site.py   (from the website folder)
 Everything is regenerated except avatar.jpg, style.css, README.md.
 Public-site rules: no private notes, no GPA, no phone number, no references,
 no NDA result figures, no unpublished-placeholder entries, J9 excluded unless INCLUDE_J9 = True.
+Unreviewed job-posting fill-ins stay hidden: tagged bullets, tagged sections, and core-stack lines whose label is not
+in CORE_STACK_PUBLIC. Private notes are stripped by strip_private_notes(). The build ends with a LEAK CHECK over every
+page and the public CV text and stops with an error if a private note is left (Ajan, Nov 13, 2026: "no private notes").
 """
-import html, pathlib, re, shutil
+import html, pathlib, re, shutil, sys
 import markdown
 
 INCLUDE_J9 = True
+
+# Core-stack lines shown on the public Skills page and in the public CV PDF. Lines added to the master CV for
+# job-posting fill-ins stay off the site until Ajan reviews them; add a label here to publish it.
+CORE_STACK_PUBLIC = {
+    "Languages", "ML / Data", "Speech / Audio", "Computer Vision / Embedded", "Biomedical Signals",
+    "Speech Applications", "LLMs / Generative AI", "Circuits / Lab", "Biomedical Imaging", "Neuroscience Wet Lab",
+    "Microscopy", "RF / Antennas", "Web / Mobile", "Edge AI", "VLSI / MEMS / Power",
+    "VLSI / MEMS / Power / Electrical design", "Teaching Tech", "AI Strategy & AI Literacy (certificate)",
+    "IT / Systems", "Tools",
+}
+
+# Bullets that were already public and later got a job-posting fill-in added to the same line: the reviewed first
+# part stays public, the fill-in part stays hidden.
+KEEP_REVIEWED_PART = ["- SQL — data management"]
+
+# Text that must never reach a public page (checked at the end of the build).
+LEAK = re.compile(
+    r"\(Ajan,|fill-in|\bpostings?\)|when a posting asks|on resumes\)|; confirm\)|consider renewing|\(none yet|"
+    r"not yet used|\(to add|-reported,|keep off the public|for interviews and research statements|\bGPA\b|"
+    r"Use for summaries|sample outline written|you could teach|you'd like to develop", re.I)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT.parent / "Master CV" / "master_cv.md"
@@ -60,14 +83,76 @@ def drop_unreviewed(md):
         low = line.lower()
         if stripped.startswith("- ") and ("fill-in" in low or re.search(r"\(added [^)]*postings?\)", line)):
             skip_indent = indent
+            reviewed = next((k for k in KEEP_REVIEWED_PART if stripped.startswith(k)), None)
+            if reviewed:
+                out.append(line[:indent] + reviewed)
             continue
         out.append(line)
-    md = "\n".join(out)
+    # a heading tagged as a fill-in hides its whole section (down to the next heading of the same or a higher level)
+    kept, skip_level = [], None
+    for line in out:
+        m = re.match(r"^(#{2,6}) ", line)
+        if m:
+            level = len(m.group(1))
+            if skip_level is not None and level <= skip_level:
+                skip_level = None
+            if skip_level is None and ("fill-in" in line.lower() or re.search(r"\(added [^)]*postings?\)", line)):
+                skip_level = level
+                continue
+        if skip_level is None:
+            kept.append(line)
+    md = "\n".join(kept)
     md = re.sub(r"\s*\(added [A-Z][a-z]{2} \d{1,2}, \d{4}\)", "", md)
     return md
 
+def public_core_stack(md):
+    """Keep only the reviewed core-stack lines (CORE_STACK_PUBLIC) in the 'Summary (core stack ...)' block."""
+    def keep(block):
+        lines = []
+        for line in block.group(0).split("\n"):
+            m = re.match(r"- \*\*(.+?):\*\*", line)
+            if m and m.group(1) not in CORE_STACK_PUBLIC:
+                continue
+            lines.append(line)
+        return "\n".join(lines)
+    return re.sub(r"^### Summary \(core stack[^\n]*\n.*?(?=^### |^---|\Z)", keep, md, flags=re.S | re.M)
+
+def strip_private_notes(md):
+    """Remove notes written for Ajan and Claude only: who said what and when, reminders and gaps, how to use a fact on
+    resumes or in applications, and which postings a piece of text was written for."""
+    P = r"(?:[^()\n]|\([^()\n]*\))*"   # text with at most one level of nested brackets
+    md = re.sub(r"\s*[A-Z][^.\n]*?when a posting asks[^\n]*?\.(?=\s|$)", "", md, flags=re.M)  # "Official ... when a posting asks ..."
+    md = re.sub(rf"\s*\(Ajan, {P}\)", "", md)                                  # "(Ajan, Nov 9, 2026: ...)"
+    md = re.sub(rf"\s*\((?:user|self)-reported{P}\)", "", md)                  # "(user-reported, Sep 2026)"
+    md = re.sub(rf"\s*\({P}\bon resumes\)", "", md)                            # "(... never split it ... on resumes)"
+    md = re.sub(rf"\s*\({P}; confirm\)", "", md)                               # "(based on ...; confirm)"
+    md = re.sub(r";\s*[^;()\n]*\bnot yet used\b(?:\s*\([^()\n]*\))?", "", md)   # "; Yardi Voyager not yet used (X is the closest)"
+    md = re.sub(r"\s*\([^()\n]*\bnot yet used\)", "", md)                      # "(Oracle Projects not yet used)"
+    md = re.sub(r"\s*Not a current Canadian certification;[^\n]*?if a job requires it\.", "", md)
+    md = re.sub(r"^\s*- \(none yet[^\n]*\n", "", md, flags=re.M)               # "(none yet; consider ...)"
+    md = re.sub(r"\((?:[^()\n;]*; )?sample outline written [^()\n]*? as a (\d+-week)", r"(\1", md)  # postings an outline was written for
+    md = md.replace("Courses you could teach:", "Courses I can teach:")
+    md = md.replace("Courses you'd like to develop:", "Courses I would like to develop:")
+    return md
+
+def drop_empty_headings(md):
+    """Remove a heading (level 3 or deeper) left with nothing under it after the public filters."""
+    lines = md.split("\n")
+    out = []
+    for i, line in enumerate(lines):
+        m = re.match(r"^(#{3,6}) ", line)
+        if m:
+            nxt = next((l for l in lines[i + 1:] if l.strip()), "")
+            n = re.match(r"^(#{1,6}) ", nxt)
+            if not nxt or nxt.startswith("---") or (n and len(n.group(1)) <= len(m.group(1))):
+                continue
+        out.append(line)
+    return "\n".join(out)
+
 def clean_public(md):
     md = drop_unreviewed(md)
+    md = public_core_stack(md)
+    md = strip_private_notes(md)
     md = re.sub(r"<!--.*?-->\n?", "", md, flags=re.S)
     md = re.sub(r"^\s*- \*\*Tags:\*\*.*\n", "", md, flags=re.M)
     md = re.sub(r"^\s*- \*\*Industry framing:\*\*.*\n", "", md, flags=re.M)
@@ -81,6 +166,7 @@ def clean_public(md):
     md = md.replace("**Limitations & future work (for interviews and research statements):**", "**Limitations & future work:**")
     md = md.replace("Status:** completed; final technical report delivered to the sponsor; results not publishable under a non-disclosure agreement (NDA)",
                     "Status:** completed; final technical report delivered to the sponsor (results under a non-disclosure agreement)")
+    md = drop_empty_headings(md)
     return md
 
 def sections(md, level):
@@ -164,10 +250,32 @@ def page(title, content, depth=0, active=""):
 </html>
 """
 
+PAGES = {}   # rel path -> page content (the part that comes from the master CV), for the leak check
+
 def write(rel, title, content, depth=0, active=""):
     p = ROOT / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(page(title, content, depth, active), encoding="utf-8")
+    PAGES[rel] = f"{title}\n{content}"
+
+def leak_check(pub_md):
+    """Stop the build when a private note is still in a page or in the public CV text."""
+    phone = re.search(r"\*\*Phone:\*\*\s*([^\n]+)", raw)
+    digits = re.sub(r"\D", "", phone.group(1))[-10:] if phone else ""
+    found = []
+    for rel, text in list(PAGES.items()) + [("Ajan_Ahmed_CV.pdf (text)", pub_md)]:
+        plain = html.unescape(re.sub(r"<[^>]+>", " ", text))
+        for m in LEAK.finditer(plain):
+            around = " ".join(plain[max(0, m.start() - 60): m.end() + 60].split())
+            found.append(f"  {rel}: ...{around}...")
+        if digits and digits in re.sub(r"\D", "", plain):
+            found.append(f"  {rel}: phone number")
+    if found:
+        print(f"LEAK CHECK FAILED: {len(found)} private note(s) would be published. Fix the master CV text or the "
+              "filters in build_site.py; do NOT commit or push this build.")
+        print("\n".join(found[:60]).encode("ascii", "replace").decode())
+        sys.exit(1)
+    print(f"leak check passed ({len(PAGES)} pages + public CV text)")
 
 def crumb(section_href, section_label):
     return f'<p class="crumb"><a href="../{section_href}">&larr; {section_label}</a></p>'
@@ -334,6 +442,7 @@ if not INCLUDE_J9:
     pub = re.sub(r"^#### J9\..*?(?=^#### |^### |\Z)", "", pub, flags=re.S | re.M)
     pub = pub.replace("9 journal articles", "8 journal articles").replace("(24)", "(23)")
 pub = re.sub(r"^#{2,4} \[(Project Name|Job Title)\].*?(?=^#{2,4} |\Z)", "", pub, flags=re.S | re.M)
+leak_check(pub)
 pub_html = markdown.markdown(fix_indent(pub), extensions=["tables", "sane_lists"])
 PDF_CSS = """
 @page { size: Letter; margin: 0.65in 0.7in 0.75in 0.7in;
