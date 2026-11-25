@@ -7,10 +7,9 @@ Styling: dark theme, Inter font, sticky profile sidebar (`style.css`).
 
 - `index.html` — home: about + links to every section
 - Section pages: `education.html`, `research.html`, `projects.html`, `publications.html`, `talks.html`,
-  `teaching.html`, `funding.html`, `experience.html`, `honors.html`, `skills.html`, `cv.html`
+  `teaching.html`, `funding.html`, `experience.html`, `honors.html`, `skills.html`
 - Detail pages (one per item): `education/`, `research/`, `projects/`, `publications/`, `talks/`,
   `teaching/`, `experience/`, `skills/`
-- `Ajan_Ahmed_CV.pdf` — public CV (no phone, no references, no private notes)
 - `_build/build_site.py` — generator (not published; folders starting with `_` are ignored by GitHub Pages)
 
 ## Rebuild after editing the master CV
@@ -20,7 +19,7 @@ cd "D:\Master CV\website"
 python _build/build_site.py
 ```
 
-Requires Python with `markdown` (`pip install markdown`) and Microsoft Edge (for the PDF).
+Requires Python with `markdown` (`pip install markdown`). The site has no CV page and no CV PDF.
 The generator applies the public-site rules: no GPA, phone, references, private notes, NDA result figures,
 or placeholder entries; J9 excluded unless `INCLUDE_J9 = True`.
 

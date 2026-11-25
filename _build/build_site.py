@@ -6,14 +6,15 @@ Public-site rules: no private notes, no GPA, no phone number, no references,
 no NDA result figures, no unpublished-placeholder entries, J9 excluded unless INCLUDE_J9 = True.
 Unreviewed job-posting fill-ins stay hidden: tagged bullets, tagged sections, and core-stack lines whose label is not
 in CORE_STACK_PUBLIC. Private notes are stripped by strip_private_notes(). The build ends with a LEAK CHECK over every
-page and the public CV text and stops with an error if a private note is left (Ajan, Nov 13, 2026: "no private notes").
+page and stops with an error if a private note is left (Ajan, Nov 13, 2026: "no private notes").
+The site has no CV page and no CV PDF (Ajan, Nov 25, 2026: "website shouldnt have a pdf cv at all").
 """
 import html, pathlib, re, shutil, sys
 import markdown
 
 INCLUDE_J9 = True
 
-# Core-stack lines shown on the public Skills page and in the public CV PDF. Lines added to the master CV for
+# Core-stack lines shown on the public Skills page. Lines added to the master CV for
 # job-posting fill-ins stay off the site until Ajan reviews them; add a label here to publish it.
 CORE_STACK_PUBLIC = {
     "Languages", "ML / Data", "Speech / Audio", "Computer Vision / Embedded", "Biomedical Signals",
@@ -193,7 +194,7 @@ NAV = [
     ("index.html", "Home"), ("education.html", "Education"), ("research.html", "Research Experience"),
     ("projects.html", "Projects"), ("publications.html", "Publications"), ("talks.html", "Invited Talks"),
     ("teaching.html", "Teaching"), ("funding.html", "Research Funding"), ("experience.html", "Work Experience"),
-    ("honors.html", "Honors & Certifications"), ("skills.html", "Skills"), ("cv.html", "CV"),
+    ("honors.html", "Honors & Certifications"), ("skills.html", "Skills"),
 ]
 ICONS = """<ul class="icons">
   <li><a href="https://github.com/ahmedajan" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.69-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg></a></li>
@@ -258,12 +259,12 @@ def write(rel, title, content, depth=0, active=""):
     p.write_text(page(title, content, depth, active), encoding="utf-8")
     PAGES[rel] = f"{title}\n{content}"
 
-def leak_check(pub_md):
-    """Stop the build when a private note is still in a page or in the public CV text."""
+def leak_check():
+    """Stop the build when a private note is still in a page."""
     phone = re.search(r"\*\*Phone:\*\*\s*([^\n]+)", raw)
     digits = re.sub(r"\D", "", phone.group(1))[-10:] if phone else ""
     found = []
-    for rel, text in list(PAGES.items()) + [("Ajan_Ahmed_CV.pdf (text)", pub_md)]:
+    for rel, text in list(PAGES.items()):
         plain = html.unescape(re.sub(r"<[^>]+>", " ", text))
         for m in LEAK.finditer(plain):
             around = " ".join(plain[max(0, m.start() - 60): m.end() + 60].split())
@@ -275,7 +276,7 @@ def leak_check(pub_md):
               "filters in build_site.py; do NOT commit or push this build.")
         print("\n".join(found[:60]).encode("ascii", "replace").decode())
         sys.exit(1)
-    print(f"leak check passed ({len(PAGES)} pages + public CV text)")
+    print(f"leak check passed ({len(PAGES)} pages)")
 
 def crumb(section_href, section_label):
     return f'<p class="crumb"><a href="../{section_href}">&larr; {section_label}</a></p>'
@@ -419,49 +420,6 @@ spre, sgroups = sections(S["Soft Skills"], 3)
 sk += "\n<h3 class=\"group\">Professional Skills</h3>\n" + item_list(sgroups, "skills", "skills.html", "Skills", "skills.html")
 write("skills.html", "Skills", sk, active="skills.html")
 
-# ---------------------------------------------------------------- CV page
-cv = """<h2>Curriculum Vitae</h2>
-<div class="prose"><p>Dr. Ahmed's complete, detailed CV (all sections) is available as a PDF.</p>
-<p><a href="Ajan_Ahmed_CV.pdf">Download the CV (PDF)</a></p>
-<p>Contact: <a href="mailto:aahmed@clarkson.edu">aahmed@clarkson.edu</a> &middot; Edmonton, Alberta, Canada &middot; Open Work Permit (Canada), no sponsorship required.</p></div>"""
-write("cv.html", "CV", cv, active="cv.html")
-
+# No CV page and no public CV PDF (Ajan, Nov 25, 2026: "website shouldnt have a pdf cv at all").
 print("site built in", ROOT)
-
-# ---------------------------------------------------------------- public CV PDF (for cv.html)
-import subprocess
-pub = clean_public(raw)
-pub = pub.replace("# Master CV — Ajan Ahmed, PhD", "# Ajan Ahmed, PhD", 1)
-pub = re.sub(r"^> .*\n(>.*\n)*", "", pub, flags=re.M)
-for sec in ("Summary Variants", "References", "Notes / Achievement Bank"):
-    pub = re.sub(rf"^## {re.escape(sec)}\n.*?(?=^## |\Z)", "", pub, flags=re.S | re.M)
-pub = re.sub(r"^- \*\*Phone:\*\*.*\n", "", pub, flags=re.M)
-pub = re.sub(r"^### Other Proposals\n.*?(?=^### |^## |\Z)", "", pub, flags=re.S | re.M)
-pub = re.sub(r"^### Technical Position — ImransLab.*?(?=^### |^## |\Z)", "", pub, flags=re.S | re.M)
-if not INCLUDE_J9:
-    pub = re.sub(r"^#### J9\..*?(?=^#### |^### |\Z)", "", pub, flags=re.S | re.M)
-    pub = pub.replace("9 journal articles", "8 journal articles").replace("(24)", "(23)")
-pub = re.sub(r"^#{2,4} \[(Project Name|Job Title)\].*?(?=^#{2,4} |\Z)", "", pub, flags=re.S | re.M)
-leak_check(pub)
-pub_html = markdown.markdown(fix_indent(pub), extensions=["tables", "sane_lists"])
-PDF_CSS = """
-@page { size: Letter; margin: 0.65in 0.7in 0.75in 0.7in;
-  @bottom-center { content: "Ajan Ahmed, PhD | CV | Page " counter(page) " of " counter(pages);
-                   font-family: 'Segoe UI', Arial, sans-serif; font-size: 8pt; color: #666; } }
-html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-body { font-family: 'Segoe UI', Calibri, Arial, sans-serif; font-size: 9.6pt; line-height: 1.38; color: #1d1d1f; }
-h1 { font-size: 24pt; color: #35393D; margin: 0 0 2pt 0; }
-h2 { font-size: 13.5pt; color: #fff; background: #35393D; padding: 4pt 8pt; margin: 16pt 0 8pt 0; border-radius: 3px; break-after: avoid; }
-h3 { font-size: 11pt; color: #35393D; margin: 12pt 0 4pt 0; padding-bottom: 2pt; border-bottom: 1px solid #ccc; break-after: avoid; }
-h4 { font-size: 10pt; color: #444; margin: 10pt 0 3pt 0; break-after: avoid; }
-p { margin: 3pt 0 5pt 0; } ul, ol { margin: 2pt 0 5pt 0; padding-left: 16pt; } li { margin: 1.2pt 0; }
-table { border-collapse: collapse; width: 100%; font-size: 8.8pt; } th, td { border: 1px solid #ccc; padding: 3pt 5pt; vertical-align: top; }
-tr { break-inside: avoid; } a { color: #1d1d1f; text-decoration: none; }
-"""
-tmp_html = ROOT / "_build" / "cv_public.html"
-tmp_html.write_text(f'<!doctype html><html><head><meta charset="utf-8"><title>Ajan Ahmed, PhD — CV</title><style>{PDF_CSS}</style></head><body>{pub_html}</body></html>', encoding="utf-8")
-edge = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
-subprocess.run([edge, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-                f"--print-to-pdf={ROOT / 'Ajan_Ahmed_CV.pdf'}", tmp_html.as_uri()], check=True, timeout=180)
-tmp_html.unlink()
-print("public CV PDF written")
+leak_check()
