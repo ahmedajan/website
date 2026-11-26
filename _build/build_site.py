@@ -21,7 +21,7 @@ CORE_STACK_PUBLIC = {
     "Speech Applications", "LLMs / Generative AI", "Circuits / Lab", "Biomedical Imaging", "Neuroscience Wet Lab",
     "Microscopy", "RF / Antennas", "Web / Mobile", "Edge AI", "VLSI / MEMS / Power",
     "VLSI / MEMS / Power / Electrical design", "Teaching Tech", "AI Strategy & AI Literacy (certificate)",
-    "Spreadsheet Fundamentals (certificate)", "IT / Systems", "Tools",
+    "Spreadsheet Fundamentals (certificate)", "Excel for Business (certificate)", "IT / Systems", "Tools",
 }
 
 # Bullets that were already public and later got a job-posting fill-in added to the same line: the reviewed first
