@@ -23,6 +23,12 @@ CORE_STACK_PUBLIC = {
     "VLSI / MEMS / Power / Electrical design", "Teaching Tech", "AI Strategy & AI Literacy (certificate)",
     "Spreadsheet Fundamentals (certificate)", "Excel for Business (certificate)",
     "Word Processing & Microsoft 365 (certificate)", "IT / Systems", "Tools",
+    # Coursera business analysis certificates (Nov 26, 2026)
+    "Business Analysis & Requirements (certificates)", "Process Modelling & Improvement (certificates)",
+    "Excel for Business Analysis (certificates)", "Project Management & Agile Methods (certificates)",
+    "Agile & Collaboration Tools (certificates)", "SQL (certificates)",
+    "Power BI, Data Modelling & Governance (certificates)", "Business Systems & Technology (certificates)",
+    "Business Strategy, Product & Change (certificates)",
 }
 
 # Bullets that were already public and later got a job-posting fill-in added to the same line: the reviewed first
