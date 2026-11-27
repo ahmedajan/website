@@ -29,6 +29,8 @@ CORE_STACK_PUBLIC = {
     "Agile & Collaboration Tools (certificates)", "SQL (certificates)",
     "Power BI, Data Modelling & Governance (certificates)", "Business Systems & Technology (certificates)",
     "Business Strategy, Product & Change (certificates)",
+    # Senior Business Analyst role, ImransLab (Ajan, Nov 27, 2026: "push the role to the website")
+    "Business Analysis (Senior Business Analyst, ImransLab)",
 }
 
 # Bullets that were already public and later got a job-posting fill-in added to the same line: the reviewed first
