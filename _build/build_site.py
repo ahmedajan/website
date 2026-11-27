@@ -252,7 +252,7 @@ def page(title, content, depth=0, active=""):
      </aside>
      <section class="content">
 {content}
-      <footer class="foot">&copy; 2026 Ajan Ahmed, PhD &middot; Open Work Permit (Canada)</footer>
+      <footer class="foot">&copy; 2026 Ajan Ahmed, PhD &middot; Permanent Resident of Canada</footer>
      </section>
     </div>
   </div>
